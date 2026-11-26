@@ -3,12 +3,18 @@ import { Alert } from 'react-native';
 
 import { Button } from '@/components/ui';
 import { signInWith } from '@/lib/api';
+import { googleEnabled } from '@/lib/config';
 import { useGoogleSignIn } from '@/lib/google';
 import type { User } from '@/lib/types';
 import { failure } from '@/lib/utils';
 import { useAuth } from '@/providers/AuthProvider';
 
-export function GoogleButton({ role = 'buyer', onDone }: { role?: User['role']; onDone: () => void }) {
+/** The Google hook throws without a client ID, so it only mounts when one is configured. */
+export function GoogleButton(props: { role?: User['role']; onDone: () => void }) {
+  return googleEnabled ? <GoogleButtonInner {...props} /> : null;
+}
+
+function GoogleButtonInner({ role = 'buyer', onDone }: { role?: User['role']; onDone: () => void }) {
   const { setSession } = useAuth();
   const [busy, setBusy] = useState(false);
   const google = useGoogleSignIn(async (idToken) => {
@@ -23,6 +29,5 @@ export function GoogleButton({ role = 'buyer', onDone }: { role?: User['role']; 
       setBusy(false);
     }
   });
-  if (!google.enabled) return null;
   return <Button title="Continue with Google" icon="logo-google" variant="secondary" loading={busy} disabled={!google.ready} onPress={google.start} />;
 }

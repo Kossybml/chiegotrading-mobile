@@ -1,4 +1,5 @@
 import Constants from 'expo-constants';
+import { Platform } from 'react-native';
 
 const extra = (Constants.expoConfig?.extra ?? {}) as { apiUrl?: string; eas?: { projectId?: string } };
 
@@ -13,4 +14,5 @@ export const config = {
   paymentReturnPath: 'payment-complete',
 };
 
-export const googleEnabled = Boolean(config.google.web || config.google.ios || config.google.android);
+/** Google needs the client ID for the platform the app is running on, otherwise the auth hook throws. */
+export const googleEnabled = Platform.OS === 'ios' ? Boolean(config.google.ios) : Platform.OS === 'android' ? Boolean(config.google.android) : Boolean(config.google.web);
