@@ -1,5 +1,4 @@
 import { Image } from 'expo-image';
-import { LinearGradient } from 'expo-linear-gradient';
 import { router } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { useRef, useState } from 'react';
@@ -15,6 +14,18 @@ const slides = [
   { image: require('../../assets/images/onb-2.jpg'), title: 'Bulk and export, made simple', text: 'Order by the carton or the container. Browse in naira, dollars, pounds or euros.' },
   { image: require('../../assets/images/onb-3.jpg'), title: 'Order with confidence', text: 'Pay securely online, track every order and buy from verified sellers.' },
 ];
+
+/** Dark fade at the bottom made of stacked bands, so no native gradient module is needed. */
+function Fade() {
+  const n = 24;
+  return (
+    <View pointerEvents="none" style={s.fade}>
+      {Array.from({ length: n }, (_, k) => (
+        <View key={k} style={{ flex: 1, backgroundColor: `rgba(0,0,0,${Math.min(1, Math.pow((k + 1) / n, 1.6) * 1.05).toFixed(3)})` }} />
+      ))}
+    </View>
+  );
+}
 
 export default function Onboarding() {
   const { width, height } = useWindowDimensions();
@@ -42,7 +53,7 @@ export default function Onboarding() {
         onMomentumScrollEnd={(e) => setI(Math.round(e.nativeEvent.contentOffset.x / width))}
         renderItem={({ item }) => <Image source={item.image} style={{ width, height }} contentFit="cover" />}
       />
-      <LinearGradient pointerEvents="none" colors={['transparent', 'rgba(0,0,0,0.75)', '#000']} locations={[0, 0.55, 1]} style={s.fade} />
+      <Fade />
       <View style={[s.panel, { paddingBottom: insets.bottom + space.xl }]} pointerEvents="box-none">
         <View style={s.dots}>{slides.map((_, k) => <View key={k} style={[s.dot, k === i && s.dotOn]} />)}</View>
         <Text style={s.title}>{slides[i].title}</Text>
