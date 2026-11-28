@@ -17,7 +17,9 @@
         "NSCameraUsageDescription": "Take photos of your products and profile picture.",
         "NSPhotoLibraryUsageDescription": "Choose photos for your profile and product listings."
       },
-      "associatedDomains": ["applinks:chiegotrading.com"]
+      "associatedDomains": [
+        "applinks:chiegotrading.com"
+      ]
     },
     "android": {
       "package": "com.chiegotrading.app",
@@ -26,30 +28,76 @@
         "foregroundImage": "./assets/images/android-icon-foreground.png",
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
-      "permissions": ["CAMERA", "USE_BIOMETRIC", "USE_FINGERPRINT", "POST_NOTIFICATIONS", "VIBRATE"],
+      "permissions": [
+        "CAMERA",
+        "USE_BIOMETRIC",
+        "USE_FINGERPRINT",
+        "POST_NOTIFICATIONS",
+        "VIBRATE"
+      ],
       "intentFilters": [
         {
           "action": "VIEW",
           "autoVerify": true,
-          "data": [{ "scheme": "https", "host": "chiegotrading.com", "pathPrefix": "/shop" }],
-          "category": ["BROWSABLE", "DEFAULT"]
+          "data": [
+            {
+              "scheme": "https",
+              "host": "chiegotrading.com",
+              "pathPrefix": "/shop"
+            }
+          ],
+          "category": [
+            "BROWSABLE",
+            "DEFAULT"
+          ]
         }
       ]
     },
-    "web": { "favicon": "./assets/images/favicon.png" },
+    "web": {
+      "favicon": "./assets/images/favicon.png"
+    },
     "plugins": [
       "expo-router",
       "expo-secure-store",
       "expo-web-browser",
-      ["expo-splash-screen", { "backgroundColor": "#ffffff", "image": "./assets/images/splash-logo-dark.png", "imageWidth": 200 }],
-      ["expo-notifications", { "icon": "./assets/images/android-icon-monochrome.png", "color": "#2f6b2a" }],
-      ["expo-local-authentication", { "faceIDPermission": "Use Face ID to unlock ChiegoTrading quickly and keep your account private." }],
-      ["expo-image-picker", { "photosPermission": "Choose photos for your profile and product listings.", "cameraPermission": "Take photos of your products and profile picture." }]
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#ffffff",
+          "image": "./assets/images/splash-logo-dark.png",
+          "imageWidth": 200
+        }
+      ],
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/images/android-icon-monochrome.png",
+          "color": "#2f6b2a"
+        }
+      ],
+      [
+        "expo-local-authentication",
+        {
+          "faceIDPermission": "Use Face ID to unlock ChiegoTrading quickly and keep your account private."
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Choose photos for your profile and product listings.",
+          "cameraPermission": "Take photos of your products and profile picture."
+        }
+      ],
+      "expo-image"
     ],
-    "experiments": { "typedRoutes": true },
+    "experiments": {
+      "typedRoutes": true
+    },
     "extra": {
       "apiUrl": "https://chiegotrading.com/api/v1",
-      "eas": { "projectId": "" }
+      "eas": {
+        "projectId": ""
+      }
     }
   }
 }
